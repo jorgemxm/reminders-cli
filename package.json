@@ -1,17 +1,26 @@
 {
   "name": "reminders-cli",
-  "description": "Command-line interface that uses natural language processing to parse phrases and interact with Reminders.app.",
+  "description": "(fork): Command-line interface that uses natural language processing to parse phrases and interact with Reminders.app.",
   "version": "0.1.0",
   "author": {
     "name": "Lucas Bento",
     "email": "lucas.bsilva@outlook.com",
-    "url": "https://github.com/lucasbento"
+    "url": "https://github.com/jorgemxm"
   },
   "bin": {
     "reminders": "./bin/reminders",
     "remind": "./bin/reminders"
   },
-  "bugs": "https://github.com/lucasbento/reminders-cli/issues",
+  "scripts": {
+    "build": "npm run clear && babel src --ignore *.spec.js,__tests__,__mocks__ --out-dir dist --copy-files",
+    "clear": "rm -rf ./dist",
+    "lint": "eslint ./src",
+    "prepublish": "npm run build",
+    "test": "npm run lint && jest --runInBand",
+    "ci": "npm run lint && NODE_ENV=CI jest --runInBand",
+    "watch": "babel --ignore *.spec.js,__tests__,__mocks__ -w -d ./dist ./src --copy-files"
+  },
+  "bugs": "https://github.com/jorgemxm/reminders-cli/issues",
   "dependencies": {
     "applescript-promise": "^0.0.1",
     "blessed": "^0.1.81",
@@ -25,19 +34,20 @@
     "update-notifier": "^2.2.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.0",
-    "babel-core": "^6.24.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^7.2.1",
     "babel-jest": "^19.0.0",
-    "babel-polyfill": "^6.20.0",
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-stage-0": "^6.22.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "jest": "^20.0.4"
   },
-  "homepage": "https://github.com/lucasbento/reminders-cli#readme",
+  "homepage": "https://github.com/jorgemxm/reminders-cli#readme",
   "keywords": [
     "apple",
     "applescript",
@@ -53,21 +63,12 @@
   "preferGlobal": true,
   "repository": {
     "type": "git",
-    "url": "http://github.com/lucasbento/reminders-cli"
+    "url": "http://github.com/jorgemxm/reminders-cli"
   },
   "engines": {
     "node": ">=4.4.7"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./test/index.js"
-  },
-  "scripts": {
-    "build": "npm run clear && babel src --ignore *.spec.js,__tests__,__mocks__ --out-dir dist --copy-files",
-    "clear": "rm -rf ./dist",
-    "lint": "eslint ./src",
-    "prepublish": "npm run build",
-    "test": "npm run lint && jest --runInBand",
-    "ci": "npm run lint && NODE_ENV=CI jest --runInBand",
-    "watch": "babel --ignore *.spec.js,__tests__,__mocks__ -w -d ./dist ./src --copy-files"
   }
 }

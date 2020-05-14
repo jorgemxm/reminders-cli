@@ -15,7 +15,9 @@ const cli = meow(`
     --complete  - List all reminders and enable a selector to be completed
 
   Examples
-    $ remind me to feed the cats tomorrow at 12:00
+    $ remind me to feed the cats tomorrow at 13:00
+    $ remind me at 6pm to buy milk
+    $ remind me Go home in 2 hours
     $ reminders --list
 `);
 

@@ -14,8 +14,8 @@ const spinner = ora();
 export const getReminders = () => applescript.execFile(getRemindersPath);
 export const getReminderDate = async ({ name }) => {
   const date = await applescript.execFile(getReminderPath, [name]);
-
-  return moment(date, 'dddd, D MMMM YYYY H:mm:ss').format('DD/MM/YYYY-HH:mm').split('-');
+  // console.log('[DEBUG:getDate]', date);
+  return moment(date, 'dddd, MMM DD, YYYY H:mm:ss').format('DD/MM/YYYY-HH:mm').split('-');
 };
 
 const showReminderList = async () => {

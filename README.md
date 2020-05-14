@@ -1,4 +1,4 @@
-<p align="center"> 
+<p align="center">
 <img align="center" src="media/logo.gif" alt="reminders-cli" title="reminders-cli" />
 </p>
 
@@ -19,7 +19,7 @@ $ reminders --help
   Usage
     $ remind <input>
     $ reminders
-  
+
   Options
     --list      - List all reminders (will trigger if no option is provided).
     --complete  - List all reminders and enable a selector to be completed
@@ -37,7 +37,7 @@ $ remind me in two hours to study
 
 ![Add command](media/add_command.gif "Add command")
 
-> You can see some examples in the [date parsing test file](https://github.com/lucasbento/reminders-cli/blob/master/src/utils/__tests__date.spec.js#5).
+> You can see some examples in the [date parsing test file](https://github.com/jorgemxm/reminders-cli/blob/master/src/utils/__tests__date.spec.js#5).
 
 ### List
 
@@ -93,4 +93,5 @@ yarn run watch
 node ./dist/index.js --list # To list reminders
 node ./dist/index.js --add "My reminder" 11/11/2017 10:30
 node ./dist/index.js --add "My reminder"
+npx babel-node ./src/index.js --add "My reminder"
 ```

@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 class DateRange {
-  DATE_CHOICES = {};
+  // DATE_CHOICES = {};
 
   constructor(currentDate) {
     this.DATE_CHOICES = {

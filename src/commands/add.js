@@ -1,4 +1,5 @@
 import applescript from 'applescript-promise';
+import moment from 'moment';
 import chalk from 'chalk';
 import ora from 'ora';
 import inquirer from 'inquirer';
@@ -14,6 +15,8 @@ const scriptPath = `${__dirname}/../scripts/add_reminder.applescript`;
 const addReminder = async (providedArgs = {}) => {
   let info = providedArgs;
   const questions = [];
+  let reminderDate = null;
+
   if (!providedArgs.name) {
     questions.push(
       {
@@ -73,12 +76,20 @@ const addReminder = async (providedArgs = {}) => {
   try {
     info.name = `${info.name[0].toUpperCase()}${info.name.slice(1)}`;
 
+    // moment('12/25/2018-14:30', "MM/DD/YYYY-HH:mm");
+    reminderDate = moment(`${info.date}-${info.time}`, 'DD/MM/YYYY-HH:mm');
+    // console.log('[DEBUG:date]', info.date);
+
+    // Date Format for AppleScript: "Tuesday, Dec 25, 2018 at 02:30:00 PM"
+    info.appleDate = reminderDate.format('dddd, MMM DD, gggg [at] hh:mm:ss A');
+
     await applescript.execFile(scriptPath, Object.values(info));
 
     spinner.stop();
 
     console.log(`${tic} Reminder created successfully!`);
-    console.log(`${tic} ${info.name} on ${info.date} at ${info.time}.`);
+    // console.log(`${tic} ${info.name} on ${info.date} at ${info.time}.`);
+    console.log(`${tic} ${info.name} on ${info.appleDate}.`);
   } catch (err) {
     spinner.stop();
 

@@ -1,3 +1,5 @@
-export DateRange from './dateRange';
-export updateNotifier from './updateNotifier';
-export * as date from './date';
+import * as date from './date';
+
+export { default as DateRange } from './dateRange';
+export { default as updateNotifier } from './updateNotifier';
+export { date };
