@@ -1,6 +1,6 @@
 {
   "name": "reminders-cli",
-  "description": "(fork): Command-line interface that uses natural language processing to parse phrases and interact with Reminders.app.",
+  "description": "Command-line interface that uses natural language processing to parse phrases and interact with Reminders.app.",
   "version": "0.1.0",
   "author": {
     "name": "Lucas Bento",
@@ -20,6 +20,9 @@
     "ci": "npm run lint && NODE_ENV=CI jest --runInBand",
     "watch": "babel --ignore *.spec.js,__tests__,__mocks__ -w -d ./dist ./src --copy-files"
   },
+  "files": [
+    "dist"
+  ],
   "bugs": "https://github.com/jorgemxm/reminders-cli/issues",
   "dependencies": {
     "applescript-promise": "^0.0.1",
