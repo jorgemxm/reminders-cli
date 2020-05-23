@@ -37,6 +37,10 @@ const getReminderDate = async ({
 
 exports.getReminderDate = getReminderDate;
 
+const tic = _chalk.default.green('✓');
+
+const tac = _chalk.default.red('✗');
+
 const showReminderList = async () => {
   spinner.start();
   spinner.text = 'Loading reminders';
@@ -93,15 +97,17 @@ const updateReminder = async (reminderName, {
   spinner.start();
   spinner.text = 'Updating reminder';
   const datetime = (0, _moment.default)(`${date} ${time}`, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
+  const dateMsg = (0, _moment.default)(`${datetime}`, 'YYYY-MM-DD HH:mm').format('dddd, DD MMM gggg, h:mm A');
   const args = [reminderName, name, datetime];
 
   try {
     await _applescriptPromise.default.execFile(updateReminderPath, args);
     spinner.stop();
-    console.log(`${_chalk.default.green('✓')} Reminder ${name} updated!`);
+    console.log(`${tic} Reminder ${name} updated!`);
+    console.log(`${tic} ${name} on ${dateMsg}`);
   } catch (err) {
     spinner.stop();
-    console.log(`${_chalk.default.red('✗')} There was an error while trying to update reminder. 😕`);
+    console.log(`${tac} There was an error while trying to update reminder. 😔`);
   }
 };
 

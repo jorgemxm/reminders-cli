@@ -19,6 +19,9 @@ export const getReminderDate = async ({ name }) => {
   return moment(date, 'dddd, MMM DD, YYYY H:mm:ss').format('DD/MM/YYYY-HH:mm').split('-');
 };
 
+const tic = chalk.green('✓');
+const tac = chalk.red('✗');
+
 export const showReminderList = async () => {
   spinner.start();
 
@@ -88,6 +91,7 @@ export const updateReminder = async (reminderName, { name, date, time }) => {
   spinner.text = 'Updating reminder';
 
   const datetime = moment(`${date} ${time}`, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
+  const dateMsg = moment(`${datetime}`, 'YYYY-MM-DD HH:mm').format('dddd, DD MMM gggg, h:mm A');
   const args = [reminderName, name, datetime];
 
   try {
@@ -95,10 +99,11 @@ export const updateReminder = async (reminderName, { name, date, time }) => {
 
     spinner.stop();
 
-    console.log(`${chalk.green('✓')} Reminder ${name} updated!`);
+    console.log(`${tic} Reminder ${name} updated!`);
+    console.log(`${tic} ${name} on ${dateMsg}`);
   } catch (err) {
     spinner.stop();
 
-    console.log(`${chalk.red('✗')} There was an error while trying to update reminder. 😕`);
+    console.log(`${tac} There was an error while trying to update reminder. 😔`);
   }
 };
