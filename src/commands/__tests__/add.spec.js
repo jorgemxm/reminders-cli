@@ -1,10 +1,10 @@
 import inquirer from '../../__mocks__/inquirer';
-import add from '../add';
+import addReminder from '../add';
 import { getReminders } from '../list';
 import { REMINDER_NAME } from '../../../test/helper';
 
 it('should handle the add command', async () => {
-  await add();
+  await addReminder();
 
   const prompts = inquirer.getPrompts();
 
@@ -15,7 +15,7 @@ it('should handle the add command', async () => {
 });
 
 it('should handle the add command with args', async () => {
-  await add({
+  await addReminder({
     name: REMINDER_NAME,
   });
 

@@ -10,7 +10,11 @@ export const REMINDER_HOUR = 10;
 
 export const addReminder = async () => {
   try {
-    await applescript.execFile(addReminderPath, [REMINDER_NAME, NUMBER_DAYS_REMINDER_DATE, REMINDER_HOUR]);
+    await applescript.execFile(addReminderPath, [
+      REMINDER_NAME,
+      NUMBER_DAYS_REMINDER_DATE,
+      REMINDER_HOUR,
+    ]);
 
     return {
       name: REMINDER_NAME,

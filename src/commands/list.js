@@ -12,13 +12,17 @@ const getReminderPath = `${__dirname}/../scripts/get_reminder.applescript`;
 const spinner = ora();
 
 export const getReminders = () => applescript.execFile(getRemindersPath);
+
 export const getReminderDate = async ({ name }) => {
   const date = await applescript.execFile(getReminderPath, [name]);
-  // console.log('[DEBUG:getDate]', date);
+
   return moment(date, 'dddd, MMM DD, YYYY H:mm:ss').format('DD/MM/YYYY-HH:mm').split('-');
 };
 
-const showReminderList = async () => {
+const tic = chalk.green('✓');
+const tac = chalk.red('✗');
+
+export const showReminderList = async () => {
   spinner.start();
 
   spinner.text = 'Loading reminders';
@@ -53,23 +57,26 @@ const showReminderList = async () => {
     {
       type: 'input',
       name: 'name',
-      message: 'What\'s the name of the reminder?',
+      message: `What's the name of the reminder?`,
       default: chosenReminder.name,
-    }, {
+    },
+    {
       type: 'list',
       name: 'date',
-      message: 'What\'s the due date of the reminder?',
+      message: `What's the due date of the reminder?`,
       choices,
       filter: date => dateRange.getDateValueBasedOnLabel(date).value,
-    }, {
+    },
+    {
       type: 'input',
       name: 'date',
-      message: 'What\'s the due date of the reminder?',
+      message: `What's the due date of the reminder?`,
       when: ({ date }) => dateRange.checkIsCustomDate(date),
-    }, {
+    },
+    {
       type: 'input',
       name: 'time',
-      message: 'What\'s the time of the reminder?',
+      message: `What's the time of the reminder?`,
       default: reminderDate[1],
     },
   ];
@@ -84,23 +91,19 @@ export const updateReminder = async (reminderName, { name, date, time }) => {
   spinner.text = 'Updating reminder';
 
   const datetime = moment(`${date} ${time}`, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm');
-  const args = [
-    reminderName,
-    name,
-    datetime,
-  ];
+  const dateMsg = moment(`${datetime}`, 'YYYY-MM-DD HH:mm').format('dddd, DD MMM gggg, h:mm A');
+  const args = [reminderName, name, datetime];
 
   try {
     await applescript.execFile(updateReminderPath, args);
 
     spinner.stop();
 
-    console.log(`${chalk.green('✓')} Reminder ${name} updated!`);
+    console.log(`${tic} Reminder ${name} updated!`);
+    console.log(`${tic} ${name} on ${dateMsg}`);
   } catch (err) {
     spinner.stop();
 
-    console.log(`${chalk.red('✗')} There was an error while trying to update reminder. 😕`);
+    console.log(`${tac} There was an error while trying to update reminder. 😔`);
   }
 };
-
-export default showReminderList;

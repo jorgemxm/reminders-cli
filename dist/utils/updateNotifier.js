@@ -1,47 +1,48 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.updateNotify = updateNotify;
 
-var _updateNotifier = require('update-notifier');
+var _updateNotifier = _interopRequireDefault(require("update-notifier"));
 
-var _updateNotifier2 = _interopRequireDefault(_updateNotifier);
+var _boxen = _interopRequireDefault(require("boxen"));
 
-var _boxen = require('boxen');
+var _chalk = _interopRequireDefault(require("chalk"));
 
-var _boxen2 = _interopRequireDefault(_boxen);
-
-var _chalk = require('chalk');
-
-var _chalk2 = _interopRequireDefault(_chalk);
-
-var _package = require('../../package.json');
-
-var _package2 = _interopRequireDefault(_package);
+var _package = _interopRequireDefault(require("../../package.json"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = () => {
-  (0, _updateNotifier2.default)({
-    pkg: _package2.default,
-    callback: (data, update) => {
-      if (!update || _package2.default.version === update.latest) {
-        return;
-      }
+function updateNotify() {
+  const notifier = (0, _updateNotifier.default)({
+    pkg: _package.default,
+    updateCheckInterval: 1000 * 60 * 60 * 24 * 30 // 30 days
 
-      const message = _chalk2.default.cyan(`There's an update of ${_package2.default.name} available:`, _chalk2.default.dim(_package2.default.version), _chalk2.default.reset('→'), _chalk2.default.blue(update.latest), _chalk2.default.dim('\nRun'), _chalk2.default.green(_chalk2.default.bold(`npm i -g ${_package2.default.name}`)), _chalk2.default.dim('to update.'));
-
-      const boxenOptions = {
-        padding: 1,
-        borderColor: 'blue',
-        dimBorder: true,
-        float: 'center',
-        align: 'center',
-        margin: 1
-      };
-
-      console.log((0, _boxen2.default)(message, boxenOptions));
-    }
   });
-};
+
+  if (notifier.update) {
+    const {
+      update: {
+        latest = ''
+      } = {}
+    } = notifier;
+
+    if (_package.default.version === latest) {
+      return;
+    }
+
+    const message = _chalk.default.cyan(`There's an update of ${_package.default.name} available:`, _chalk.default.dim(_package.default.version), _chalk.default.reset('→'), _chalk.default.blue(latest), _chalk.default.dim('\nRun'), _chalk.default.green(_chalk.default.bold(`npm i -g ${_package.default.name}`)), _chalk.default.dim('to update.'));
+
+    const boxenOptions = {
+      padding: 1,
+      borderColor: 'blue',
+      dimBorder: true,
+      float: 'center',
+      align: 'center',
+      margin: 1
+    };
+    console.log((0, _boxen.default)(message, boxenOptions));
+  }
+}

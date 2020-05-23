@@ -1,7 +1,7 @@
 {
   "name": "reminders-cli",
   "description": "Command-line interface that uses natural language processing to parse phrases and interact with Reminders.app.",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "author": {
     "name": "Lucas Bento",
     "email": "lucas.bsilva@outlook.com",
@@ -12,43 +12,35 @@
     "remind": "./bin/reminders"
   },
   "scripts": {
-    "build": "npm run clear && babel src --ignore *.spec.js,__tests__,__mocks__ --out-dir dist --copy-files",
-    "clear": "rm -rf ./dist",
-    "lint": "eslint ./src",
-    "prepublish": "npm run build",
-    "test": "npm run lint && jest --runInBand",
-    "ci": "npm run lint && NODE_ENV=CI jest --runInBand",
-    "watch": "babel --ignore *.spec.js,__tests__,__mocks__ -w -d ./dist ./src --copy-files"
+    "build": "babel src --out-dir dist --ignore '**/*.spec.js','**/*.snap','**/__tests__/','**/__mocks__/' --delete-dir-on-start --copy-files --no-copy-ignored",
+    "test": "jest --runInBand",
+    "ci": "NODE_ENV=CI jest --runInBand",
+    "watch": "npm run build -- --watch --verbose"
   },
   "files": [
     "dist"
   ],
   "bugs": "https://github.com/jorgemxm/reminders-cli/issues",
   "dependencies": {
-    "applescript-promise": "^0.0.1",
+    "applescript-promise": "0.0.6",
     "blessed": "^0.1.81",
-    "boxen": "^1.2.1",
-    "chalk": "^2.1.0",
-    "chrono-node": "^1.3.5",
+    "boxen": "4.2.0",
+    "chalk": "4.0.0",
+    "chrono-node": "1.4.6",
     "inquirer": "^3.2.2",
-    "meow": "^3.7.0",
-    "moment": "^2.18.1",
-    "ora": "^1.3.0",
-    "update-notifier": "^2.2.0"
+    "meow": "7.0.1",
+    "moment": "2.25.3",
+    "ora": "4.0.4",
+    "update-notifier": "4.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^7.2.1",
-    "babel-jest": "^19.0.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^26.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "jest": "^20.0.4"
+    "jest": "26.0.1"
   },
   "homepage": "https://github.com/jorgemxm/reminders-cli#readme",
   "keywords": [
@@ -69,9 +61,14 @@
     "url": "http://github.com/jorgemxm/reminders-cli"
   },
   "engines": {
-    "node": ">=4.4.7"
+    "node": ">=10.11.0"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./test/index.js"
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
+    ],
+    "setupFilesAfterEnv": [
+      "./test/index.js"
+    ]
   }
 }

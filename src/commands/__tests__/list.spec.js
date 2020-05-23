@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import inquirer from '../../__mocks__/inquirer';
-import list, { updateReminder, getReminderDate } from '../list';
+import { getReminderDate, showReminderList, updateReminder } from '../list';
 import {
   addReminder,
   REMINDER_NAME,
@@ -14,7 +14,7 @@ beforeEach(async () => {
 });
 
 it('should handle the list command', async () => {
-  await list();
+  await showReminderList();
 
   const prompts = inquirer.getPrompts();
 

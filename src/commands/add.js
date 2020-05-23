@@ -8,9 +8,7 @@ import { DateRange } from '../utils';
 
 const tic = chalk.green('✓');
 const tac = chalk.red('✗');
-
 const spinner = ora();
-
 const scriptPath = `${__dirname}/../scripts/add_reminder.applescript`;
 
 const version = os.release();
@@ -23,13 +21,11 @@ const addReminder = async (providedArgs = {}) => {
   let reminderDate = null;
 
   if (!providedArgs.name) {
-    questions.push(
-      {
-        type: 'input',
-        name: 'name',
-        message: 'What\'s the name of the reminder?',
-      },
-    );
+    questions.push({
+      type: 'input',
+      name: 'name',
+      message: "What's the name of the reminder?",
+    });
   } else {
     console.log(`${tic} Creating ${info.name}...`);
   }
@@ -42,27 +38,25 @@ const addReminder = async (providedArgs = {}) => {
       {
         type: 'list',
         name: 'date',
-        message: 'What\'s the due date of the reminder?',
+        message: "What's the due date of the reminder?",
         choices,
         filter: date => dateRange.getDateValueBasedOnLabel(date).value,
       },
       {
         type: 'input',
         name: 'date',
-        message: 'What\'s the due date of the reminder?',
+        message: "What's the due date of the reminder?",
         when: ({ date }) => dateRange.checkIsCustomDate(date),
-      },
+      }
     );
   }
 
   if (!providedArgs.time) {
-    questions.push(
-      {
-        type: 'input',
-        name: 'time',
-        message: 'What\'s the time of the reminder?',
-      },
-    );
+    questions.push({
+      type: 'input',
+      name: 'time',
+      message: "What's the time of the reminder?",
+    });
   }
 
   if (questions.length) {
@@ -75,7 +69,6 @@ const addReminder = async (providedArgs = {}) => {
   }
 
   spinner.start();
-
   spinner.text = 'Creating the new reminder...';
 
   try {
