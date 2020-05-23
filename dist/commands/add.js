@@ -26,6 +26,10 @@ var _inquirer = require('inquirer');
 
 var _inquirer2 = _interopRequireDefault(_inquirer);
 
+var _os = require('os');
+
+var _os2 = _interopRequireDefault(_os);
+
 var _utils = require('../utils');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -36,6 +40,10 @@ const tac = _chalk2.default.red('✗');
 const spinner = (0, _ora2.default)();
 
 const scriptPath = `${__dirname}/../scripts/add_reminder.applescript`;
+
+const version = _os2.default.release();
+const osVersion = version.split('.').shift();
+const isCatalina = osVersion >= 19;
 
 const addReminder = async (providedArgs = {}) => {
   let info = providedArgs;
@@ -93,17 +101,20 @@ const addReminder = async (providedArgs = {}) => {
 
     // moment('12/25/2018-14:30', "MM/DD/YYYY-HH:mm");
     reminderDate = (0, _moment2.default)(`${info.date}-${info.time}`, 'DD/MM/YYYY-HH:mm');
-    // console.log('[DEBUG:date]', info.date);
 
-    // Date Format for AppleScript: "Tuesday, Dec 25, 2018 at 02:30:00 PM"
-    info.appleDate = reminderDate.format('dddd, MMM DD, gggg [at] hh:mm:ss A');
+    if (isCatalina) {
+      // Date Format for AppleScript: "Friday, 5 June 2020, 3:00:00 PM"
+      info.appleDate = reminderDate.format('dddd, DD MMM gggg, hh:mm:ss A');
+    } else {
+      // Date Format for AppleScript NOT Catalina: "Tuesday, Dec 25, 2018 at 02:30:00 PM"
+      info.appleDate = reminderDate.format('dddd, MMM DD, gggg [at] hh:mm:ss A');
+    }
 
     await _applescriptPromise2.default.execFile(scriptPath, Object.values(info));
 
     spinner.stop();
 
     console.log(`${tic} Reminder created successfully!`);
-    // console.log(`${tic} ${info.name} on ${info.date} at ${info.time}.`);
     console.log(`${tic} ${info.name} on ${info.appleDate}.`);
   } catch (err) {
     spinner.stop();
