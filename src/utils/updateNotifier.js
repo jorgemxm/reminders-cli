@@ -14,8 +14,12 @@ export default () => {
 
       const message = chalk.cyan(
         `There's an update of ${pkg.name} available:`,
-        chalk.dim(pkg.version), chalk.reset('→'), chalk.blue(update.latest),
-        chalk.dim('\nRun'), chalk.green(chalk.bold(`npm i -g ${pkg.name}`)), chalk.dim('to update.'),
+      chalk.dim(pkg.version),
+      chalk.reset('→'),
+      chalk.blue(latest),
+      chalk.dim('\nRun'),
+      chalk.green(chalk.bold(`npm i -g ${pkg.name}`)),
+      chalk.dim('to update.')
       );
 
       const boxenOptions = {

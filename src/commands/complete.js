@@ -4,7 +4,6 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 
 import { getReminders } from './list';
-
 const completeReminderPath = `${__dirname}/../scripts/complete_reminder.applescript`;
 
 const spinner = ora();
@@ -25,7 +24,9 @@ export const completeReminder = async (name, isSearch) => {
   } catch (err) {
     spinner.stop();
 
-    return console.log(`${chalk.red('✗')} There was an error while trying to complete the reminder. 😕`);
+    return console.log(
+      `${chalk.red('✗')} There was an error while trying to complete the reminder. 😕`
+    );
   }
 };
 

@@ -30,14 +30,11 @@ const getAnswer = ({ type, choices, name, default: defaultAnswer }) => {
 };
 
 export default {
-  prompt: (questions) => {
-    prompts = [
-      ...prompts,
-      ...questions,
-    ];
+  prompt: questions => {
+    prompts = [...prompts, ...questions];
 
     let answers = {};
-    questions.forEach((question) => {
+    questions.forEach(question => {
       answers = {
         ...answers,
         [question.name]: getAnswer(question),
@@ -47,5 +44,5 @@ export default {
     return answers;
   },
   getPrompts: () => prompts,
-  resetPrompts: () => prompts = [], // eslint-disable-line no-return-assign
+  resetPrompts: () => (prompts = []), // eslint-disable-line no-return-assign
 };

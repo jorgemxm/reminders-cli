@@ -89,8 +89,11 @@ class DateRange {
     Object.keys(this.DATE_CHOICES).map(choice => this.DATE_CHOICES[choice].label);
 
   getDateValueBasedOnLabel = label =>
-    Object.keys(this.DATE_CHOICES).reduce((choices, choice) =>
-      ((this.DATE_CHOICES[choice].label === label) ? this.DATE_CHOICES[choice] : choices), {});
+    Object.keys(this.DATE_CHOICES).reduce(
+      (choices, choice) =>
+        this.DATE_CHOICES[choice].label === label ? this.DATE_CHOICES[choice] : choices,
+      {}
+    );
 
   checkIsCustomDate = date => this.DATE_CHOICES.CUSTOM.value === date;
 }
