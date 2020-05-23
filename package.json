@@ -12,13 +12,10 @@
     "remind": "./bin/reminders"
   },
   "scripts": {
-    "build": "npm run clear && babel src --ignore *.spec.js,__tests__,__mocks__ --out-dir dist --copy-files",
-    "clear": "rm -rf ./dist",
-    "lint": "eslint ./src",
-    "prepublish": "npm run build",
-    "test": "npm run lint && jest --runInBand",
-    "ci": "npm run lint && NODE_ENV=CI jest --runInBand",
-    "watch": "babel --ignore *.spec.js,__tests__,__mocks__ -w -d ./dist ./src --copy-files"
+    "build": "babel src --out-dir dist --ignore '**/*.spec.js','**/*.snap','**/__tests__/','**/__mocks__/' --delete-dir-on-start --copy-files --no-copy-ignored",
+    "test": "jest --runInBand",
+    "ci": "NODE_ENV=CI jest --runInBand",
+    "watch": "npm run build -- --watch --verbose"
   },
   "files": [
     "dist"
