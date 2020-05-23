@@ -1,5 +1,5 @@
 import inquirer from '../../__mocks__/inquirer';
-import complete, { completeReminder } from '../complete';
+import { complete, completeReminder } from '../complete';
 import { getReminders } from '../list';
 import { addReminder, REMINDER_NAME } from '../../../test/helper';
 

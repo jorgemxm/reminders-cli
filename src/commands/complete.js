@@ -30,7 +30,7 @@ export const completeReminder = async (name, isSearch) => {
   }
 };
 
-export default async (name = null) => {
+export const complete = async (name = null) => {
   if (name) {
     return completeReminder(name, true);
   }

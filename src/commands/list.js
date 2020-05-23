@@ -19,7 +19,7 @@ export const getReminderDate = async ({ name }) => {
   return moment(date, 'dddd, MMM DD, YYYY H:mm:ss').format('DD/MM/YYYY-HH:mm').split('-');
 };
 
-const showReminderList = async () => {
+export const showReminderList = async () => {
   spinner.start();
 
   spinner.text = 'Loading reminders';
@@ -102,5 +102,3 @@ export const updateReminder = async (reminderName, { name, date, time }) => {
     console.log(`${chalk.red('✗')} There was an error while trying to update reminder. 😕`);
   }
 };
-
-export default showReminderList;

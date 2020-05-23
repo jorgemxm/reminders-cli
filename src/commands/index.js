@@ -1,3 +1,3 @@
 export { default as add } from './add';
-export { default as list } from './list';
-export { default as complete } from './complete';
+export { showReminderList as list } from './list';
+export { complete } from './complete';
