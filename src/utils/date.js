@@ -18,8 +18,9 @@ const clearPhrase = phrase => {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const parsePhrase = (phrase) => {
-  const [parsedPhrase] = chrono.parse(phrase);
+export const parsePhrase = phrase => {
+  const localTimezone = new Date();
+  const [parsedPhrase] = chrono.parse(phrase, moment().utcOffset(localTimezone.toISOString()));
 
   if (!parsedPhrase) {
     return null;
