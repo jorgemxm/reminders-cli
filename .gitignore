@@ -9,6 +9,7 @@ node_modules
 npm-debug.log
 
 # Build folders
+dist/**/__tests__/*
 # dist
 
 # Test
